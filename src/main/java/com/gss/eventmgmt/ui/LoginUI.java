@@ -187,7 +187,7 @@ public class LoginUI extends UI {
 					@Override
 					public void buttonClick(ClickEvent event) {
 						Registration registrationInfo = new Registration();
-						if( name.getValue() == null || name.getValue() == "")
+						if( nullCheck(name.getValue()) || nullCheck(email.getValue()) || nullCheck(phoneNumber.getValue()))
 						{
 							Notification.show("Missing data", "Name, email and phone number are mandatory!", Notification.Type.ERROR_MESSAGE);
 							save.setEnabled(true);
@@ -258,5 +258,9 @@ public class LoginUI extends UI {
 		} finally {
 			login.setEnabled(true);
 		}
+	}
+	
+	public static boolean nullCheck(String str) {
+		return (str == null || str == "");
 	}
 }
