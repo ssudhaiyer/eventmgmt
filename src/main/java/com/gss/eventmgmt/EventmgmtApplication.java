@@ -63,46 +63,46 @@ public class EventmgmtApplication {
 		SpringApplication.run(EventmgmtApplication.class, args);
 	}
 
-	@Bean
-	public CommandLineRunner demo(EventRepository eventRepo, ActivityRepository activityRepo,
-			EnrollmentManager enrollmentManager, RegisterationService registrationService,
-			MemberRepository memberRepository) {
-		return (args) -> {
-			Date today = new Date();
-			Address address = new Address("SVC Temple", "SVC Temple", "Fremont", "CA", "94536");
-			// save an event
-			Event event = new Event(address, new Date());
-			Event managedEvent = eventRepo.save(event);
-
-			// save activity for event
-			Activity suhasiniPooja = new Activity("Suhasini Pooja", today, managedEvent, 100, "SUHASINI_POOJA");
-			Activity managedActivity = activityRepo.save(suhasiniPooja);
-
-			// register user
-			Address myAddress = new Address("429 Silvercrownway", "", "San Ramon", "CA", "94532");
-			Registration registration = new Registration("5105419066", "sudha.hs@gmail.com", "ADMIN", today, myAddress);
-			Optional<Registration> optionalManagedRegistration = registrationService.registerUser(registration);
-			optionalManagedRegistration = registrationService.registerUser(registration);
-			if (optionalManagedRegistration.isPresent()) {
-				Registration managedRegistration = optionalManagedRegistration.get();
-				System.out.println("==> **** REGISTERED USER WITH ID *****" + managedRegistration.getId());
-				System.out.println("==> ***** MANAGED ACTIVITY ID *****" + managedActivity.getId());
-				Member member1 = new Member(managedRegistration, "sudha", "40");
-				managedRegistration = enrollmentManager.enroll(managedRegistration, member1, managedActivity);
-				Member member2 = new Member(managedRegistration, "jeyanthi", "35");
-				managedRegistration = enrollmentManager.enroll(managedRegistration, member2, managedActivity);
-				Member member3 = new Member(managedRegistration, "Prema", "70");
-				managedRegistration = enrollmentManager.enroll(managedRegistration, member3, managedActivity);
-				System.out.println("==> ***** NUMBER OF REGISTERED MEMBERS **** " + managedRegistration.getMembers().size());
-				managedRegistration = enrollmentManager.unenroll(managedRegistration, member3, managedActivity);
-				System.out.println("==> *** NUMBER OF REGISTERED MEMEBERS AFTER REMOVING LAST USER ****" + managedRegistration.getMembers().size());
-				Member member4 = new Member(managedRegistration, "Shantha", "50");
-				managedRegistration = enrollmentManager.enroll(managedRegistration, member4, managedActivity);
-				System.out.println("==>  *** NUMBER OF REGISTERED MEMEBERS REPLACING REMOVED USER ***" + managedRegistration.getMembers().size());
-				managedRegistration.getMembers().forEach(m-> System.out.println(m.toString()));
-			}
-		};
-	}
+//	@Bean
+//	public CommandLineRunner demo(EventRepository eventRepo, ActivityRepository activityRepo,
+//			EnrollmentManager enrollmentManager, RegisterationService registrationService,
+//			MemberRepository memberRepository) {
+//		return (args) -> {
+//			Date today = new Date();
+//			Address address = new Address("SVC Temple", "SVC Temple", "Fremont", "CA", "94536");
+//			// save an event
+//			Event event = new Event(address, new Date());
+//			Event managedEvent = eventRepo.save(event);
+//
+//			// save activity for event
+//			Activity suhasiniPooja = new Activity("Suhasini Pooja", today, managedEvent, 100, "SUHASINI_POOJA");
+//			Activity managedActivity = activityRepo.save(suhasiniPooja);
+//
+//			// register user
+//			Address myAddress = new Address("429 Silvercrownway", "", "San Ramon", "CA", "94532");
+//			Registration registration = new Registration("5105419066", "sudha.hs@gmail.com", "ADMIN", today, myAddress);
+//			Optional<Registration> optionalManagedRegistration = registrationService.registerUser(registration);
+//			optionalManagedRegistration = registrationService.registerUser(registration);
+//			if (optionalManagedRegistration.isPresent()) {
+//				Registration managedRegistration = optionalManagedRegistration.get();
+//				System.out.println("==> **** REGISTERED USER WITH ID *****" + managedRegistration.getId());
+//				System.out.println("==> ***** MANAGED ACTIVITY ID *****" + managedActivity.getId());
+//				Member member1 = new Member(managedRegistration, "sudha", "40");
+//				managedRegistration = enrollmentManager.enroll(managedRegistration, member1, managedActivity);
+//				Member member2 = new Member(managedRegistration, "jeyanthi", "35");
+//				managedRegistration = enrollmentManager.enroll(managedRegistration, member2, managedActivity);
+//				Member member3 = new Member(managedRegistration, "Prema", "70");
+//				managedRegistration = enrollmentManager.enroll(managedRegistration, member3, managedActivity);
+//				System.out.println("==> ***** NUMBER OF REGISTERED MEMBERS **** " + managedRegistration.getMembers().size());
+//				managedRegistration = enrollmentManager.unenroll(managedRegistration, member3, managedActivity);
+//				System.out.println("==> *** NUMBER OF REGISTERED MEMEBERS AFTER REMOVING LAST USER ****" + managedRegistration.getMembers().size());
+//				Member member4 = new Member(managedRegistration, "Shantha", "50");
+//				managedRegistration = enrollmentManager.enroll(managedRegistration, member4, managedActivity);
+//				System.out.println("==>  *** NUMBER OF REGISTERED MEMEBERS REPLACING REMOVED USER ***" + managedRegistration.getMembers().size());
+//				managedRegistration.getMembers().forEach(m-> System.out.println(m.toString()));
+//			}
+//		};
+//	}
 
 	/**
 	 * Configure Spring Security.

@@ -84,7 +84,7 @@ public class HomeView extends VerticalLayout implements View {
 		bannerEmbed.setStyleName("banner");
 		addComponent(bannerEmbed);
 
-		Button addSuhasiniBtn = new Button("Add Suhasini");
+		Button addSuhasiniBtn = new Button("Add Suvasini");
 		addSuhasiniBtn.addStyleName(ValoTheme.BUTTON_PRIMARY);
 		
 		addSuhasiniBtn.addClickListener(new ClickListener() {
@@ -150,7 +150,7 @@ public class HomeView extends VerticalLayout implements View {
 		});
 
 		Label body = new Label(
-				"<p>Suhasini Registration Information for <b> " + managedRegistration.getPhoneNumber() + "</b> </p>");
+				"<p>Suvasini Registration Information for <b> " + managedRegistration.getPhoneNumber() + "</b> </p>");
 
 		body.setContentMode(ContentMode.HTML);
 		body.setStyleName("label");
@@ -168,15 +168,15 @@ public class HomeView extends VerticalLayout implements View {
 		userGrid.setItems(managedRegistration.getMembers());
 
 		// userGrid.setItems(regManaged.getMembers());
-		Column<Member, String> nameClmn = userGrid.addColumn(Member::getMemberName).setCaption("Suhasini Name");
+		Column<Member, String> nameClmn = userGrid.addColumn(Member::getMemberName).setCaption("Suvasini Name");
 		Column<Member, String> ageClmn = userGrid.addColumn(Member::getMemberAge)
-				.setEditorComponent(memberAgeTextField, Member::setMemberAge).setCaption("Suhasini Age (optional)");
+				.setEditorComponent(memberAgeTextField, Member::setMemberAge).setCaption("Suvasini Age (optional)");
 		Column<Member, Button> deleteClmn = userGrid.addColumn(person -> "Delete", new ButtonRenderer(clickEvent -> {
 			managedRegistration = enrollmentManager.unenroll(managedRegistration, (Member) clickEvent.getItem(),
 					managedActivity);
 			userGrid.setItems(managedRegistration.getMembers());
 			userGrid.setHeightByRows(managedRegistration.getMembers().size());
-		})).setCaption("Remove Suhasini");
+		})).setCaption("Remove Suvasini");
 		userGrid.getEditor().setEnabled(true);
 		userGrid.setHeightByRows(managedRegistration.getMembers().size());
 		suhasiniViewLayout.addComponent(userGrid);

@@ -113,8 +113,8 @@ public class LoginUI extends UI {
 				VerticalLayout registrationLayout = new VerticalLayout();
 				
 				registrationLayout.setMargin(new MarginInfo(false, false, false, true));
-				Label registerLabel = new Label("Please provide the following details to register",
-						ContentMode.PREFORMATTED);
+				Label registerLabel = new Label("Please provide the following details to register. <br> <b>Address is optional.<p>",
+						ContentMode.HTML);
 				
 				registerLabel.setStyleName("center50withpadding");
 				registrationLayout.addComponent(registerLabel);
@@ -136,7 +136,6 @@ public class LoginUI extends UI {
 				TextField email = new TextField("Email");
 				email.setRequiredIndicatorVisible(true);
 				TextField street1 = new TextField("Address");
-				street1.setRequiredIndicatorVisible(true);
 				ver1.addComponent(phoneNumber);
 				ver1.addComponent(name);
 				ver1.addComponent(email);
@@ -148,13 +147,9 @@ public class LoginUI extends UI {
 				VerticalLayout ver2 = new VerticalLayout();
 				ver2.setMargin(new MarginInfo(false, false, false, true));
 				TextField city = new TextField("City");
-				city.setRequiredIndicatorVisible(true);
 				TextField state = new TextField("State");
-				state.setRequiredIndicatorVisible(true);
 				TextField zip = new TextField("Zip");
-				zip.setRequiredIndicatorVisible(true);
 				TextField country = new TextField("Country");
-				country.setRequiredIndicatorVisible(true);
 				ver2.addComponent(city);
 				ver2.addComponent(state);
 				ver2.addComponent(zip);
@@ -183,6 +178,7 @@ public class LoginUI extends UI {
 				cancel.addClickListener(new ClickListener() {
 					@Override
 					public void buttonClick(ClickEvent event) {
+						register.setEnabled(true);
 						sub.close();
 					}
 				});
@@ -191,6 +187,12 @@ public class LoginUI extends UI {
 					@Override
 					public void buttonClick(ClickEvent event) {
 						Registration registrationInfo = new Registration();
+						if( name.getValue() == null || name.getValue() == "")
+						{
+							Notification.show("Missing data", "Name, email and phone number are mandatory!", Notification.Type.ERROR_MESSAGE);
+							save.setEnabled(true);
+							return;
+						}
 						registrationInfo.setPhoneNumber(userName.getValue());
 						registrationInfo.setAddress(new Address(street1.getValue(), state.getValue(), city.getValue(),
 								country.getValue(), zip.getValue()));
